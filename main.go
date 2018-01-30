@@ -11,7 +11,15 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler)
 	http.Handle("/", r)
-	http.ListenAndServe(":5000", r)
+	repo := DynamoRepo{
+		Region:       "eu-west-1",
+		TableName:    "test-gossad",
+		IDColumnName: "id",
+	}
+	repo.GetItem("222")
+
+	//fmt.Printf("%v", value)
+	//http.ListenAndServe(":5000", r)
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
